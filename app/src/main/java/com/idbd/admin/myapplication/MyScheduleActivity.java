@@ -222,7 +222,9 @@ public class MyScheduleActivity extends AppCompatActivity{
         RequestBody formbody = temp.add("size" , events.size()+"").build();
         try {
             JSONObject jsonObject = new JSONObject(Post.post(correct_sche_url+TokenInfo.getTokenId() , formbody));
-            pDialog.cancel();
+            if(pDialog!=null){
+                pDialog.cancel();
+            }
             String result = jsonObject.get("result").toString();
             if(result.equals("success")){
                 makeCustomDialog();
@@ -233,7 +235,9 @@ public class MyScheduleActivity extends AppCompatActivity{
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-            pDialog.cancel();           //Post받다가 오류나면 여길로 바로오니까 2번적어줘야하겠지
+            if(pDialog!=null){
+                pDialog.cancel();
+            }           //Post받다가 오류나면 여길로 바로오니까 2번적어줘야하겠지
             makeDialog("내부 서버 오류입니다. 잠시후에 시도해주세요");
         }
     }
